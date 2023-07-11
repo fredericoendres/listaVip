@@ -1,8 +1,10 @@
-package devandroid.frederico.listavip;
+package devandroid.frederico.listavip.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import devandroid.frederico.listavip.R;
 
 public class MainActivity extends AppCompatActivity {
 
