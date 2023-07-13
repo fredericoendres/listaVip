@@ -13,6 +13,7 @@ public class Pessoa {
     }
 
     public void setPrimeiroNome(String primeiroNome) {
+
         this.primeiroNome = primeiroNome;
     }
 
@@ -45,4 +46,13 @@ public class Pessoa {
 
     }
 
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "primeiroNome='" + primeiroNome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", genero='" + genero + '\'' +
+                ", telefone='" + telefone + '\'' +
+                '}';
+    }
 }
