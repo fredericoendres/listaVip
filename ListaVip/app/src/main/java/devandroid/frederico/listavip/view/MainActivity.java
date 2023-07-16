@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import devandroid.frederico.listavip.R;
 import devandroid.frederico.listavip.model.Pessoa;
@@ -33,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         pessoa = new Pessoa();
-        pessoa.setPrimeiroNome("Frederico");
+      /*  pessoa.setPrimeiroNome("Frederico");
         pessoa.setSobrenome("Endres");
         pessoa.setGenero("Masculino");
-        pessoa.setTelefone("(48)99983-4848");
+        pessoa.setTelefone("(48)99983-4848"); */
 
         editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         editSobrenome = findViewById(R.id.editSobrenome);
@@ -54,6 +56,38 @@ public class MainActivity extends AppCompatActivity {
         editGenero.setText(pessoa.getGenero());
         editTelefone.setText(pessoa.getTelefone());
 
+        btnLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editPrimeiroNome.setText("");
+                editSobrenome.setText("");
+                editTelefone.setText("");
+                editGenero.setText("");
+            }
+        });
+
+        btnFinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Volte Sempre", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
+
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                pessoa.setPrimeiroNome(editPrimeiroNome.getText().toString());
+                pessoa.setSobrenome(editSobrenome.getText().toString());
+                pessoa.setTelefone(editTelefone.getText().toString());
+                pessoa.setGenero(editGenero.getText().toString());
+
+                Toast.makeText(MainActivity.this, "Salvo "+pessoa.toString(), Toast.LENGTH_LONG).show();
+
+
+            }
+        });
 
 
 
