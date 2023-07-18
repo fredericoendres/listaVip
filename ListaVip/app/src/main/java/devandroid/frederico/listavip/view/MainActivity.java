@@ -49,12 +49,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         pessoa = new Pessoa();
+        pessoa.setPrimeiroNome(preferences.getString("primeiroNome",""));
+        pessoa.setSobrenome(preferences.getString("sobrenome",""));
+        pessoa.setTelefone(preferences.getString("telefone",""));
+        pessoa.setGenero(preferences.getString("genero",""));
 
         editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         editSobrenome = findViewById(R.id.editSobrenome);
         editSobrenome = findViewById(R.id.editSobrenome);
         editGenero = findViewById(R.id.editGenero);
         editTelefone = findViewById(R.id.editTelefone);
+
+        editPrimeiroNome.setText(pessoa.getPrimeiroNome());
+        editSobrenome.setText(pessoa.getSobrenome());
+        editTelefone.setText(pessoa.getTelefone());
+        editGenero.setText(pessoa.getGenero());
+
 
         btnFinalizar = findViewById(R.id.btnFinalizar);
         btnLimpar = findViewById(R.id.btnLimpar);
