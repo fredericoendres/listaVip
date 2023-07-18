@@ -2,6 +2,7 @@ package devandroid.frederico.listavip.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +17,10 @@ import devandroid.frederico.listavip.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
 
-    PessoaController controller;
+    SharedPreferences preferences;
+    public static final String NOME_PREFERENCES = "pref_listavip";
 
+    PessoaController controller;
 
     Pessoa pessoa;
 
@@ -37,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preferences = getSharedPreferences(NOME_PREFERENCES, 0);
+        SharedPreferences.Editor listaVip = preferences.edit();
 
         controller = new PessoaController();
         controller.toString();
@@ -88,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
                 pessoa.setGenero(editGenero.getText().toString());
 
                 Toast.makeText(MainActivity.this, "Salvo "+pessoa.toString(), Toast.LENGTH_LONG).show();
+
+                listaVip.putString("primeiroNome", pessoa.getPrimeiroNome());
+                listaVip.putString("sobrenome", pessoa.getSobrenome());
+                listaVip.putString("genero", pessoa.getGenero());
+                listaVip.putString("telefone", pessoa.getTelefone());
+                listaVip.apply();
 
                 controller.salvar(pessoa);
 
