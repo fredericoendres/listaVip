@@ -11,9 +11,13 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import devandroid.frederico.listavip.R;
+import devandroid.frederico.listavip.controller.PessoaController;
 import devandroid.frederico.listavip.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
+
+    PessoaController controller;
+
 
     Pessoa pessoa;
 
@@ -34,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        controller = new PessoaController();
+        controller.toString();
+
+
         pessoa = new Pessoa();
-      /*  pessoa.setPrimeiroNome("Frederico");
-        pessoa.setSobrenome("Endres");
-        pessoa.setGenero("Masculino");
-        pessoa.setTelefone("(48)99983-4848"); */
 
         editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         editSobrenome = findViewById(R.id.editSobrenome);
@@ -85,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(MainActivity.this, "Salvo "+pessoa.toString(), Toast.LENGTH_LONG).show();
 
+                controller.salvar(pessoa);
 
             }
         });
