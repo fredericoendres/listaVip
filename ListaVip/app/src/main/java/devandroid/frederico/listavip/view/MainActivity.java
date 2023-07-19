@@ -2,24 +2,29 @@ package devandroid.frederico.listavip.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.List;
+
 import devandroid.frederico.listavip.R;
+import devandroid.frederico.listavip.controller.GeneroController;
 import devandroid.frederico.listavip.controller.PessoaController;
 import devandroid.frederico.listavip.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
 
     PessoaController controller;
-
+    GeneroController generoController;
     Pessoa pessoa;
+    List<String> tiposDeGenero;
 
     EditText editPrimeiroNome;
     EditText editSobrenome;
@@ -31,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnFinalizar;
     ImageButton btnVerMais;
 
-
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         controller = new PessoaController(MainActivity.this);
         controller.toString();
 
+        generoController = new GeneroController();
+        tiposDeGenero = generoController.dadosParaSpinner();
 
         pessoa = new Pessoa();
         controller.buscar(pessoa);
@@ -50,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         editSobrenome = findViewById(R.id.editSobrenome);
         editGenero = findViewById(R.id.editGenero);
         editTelefone = findViewById(R.id.editTelefone);
+        spinner = findViewById(R.id.spinner);
 
         editPrimeiroNome.setText(pessoa.getPrimeiroNome());
         editSobrenome.setText(pessoa.getSobrenome());
@@ -61,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
         btnLimpar = findViewById(R.id.btnLimpar);
         btnSalvar = findViewById(R.id.btnSalvar);
         btnVerMais = findViewById(R.id.btnVerMais);
+
+        // Criando adapter a colocadn contexto
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                generoController.dadosParaSpinner());
+        // Inserindo layout
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        // Injetando
+        spinner.setAdapter(adapter);
+
 
         editPrimeiroNome.setText(pessoa.getPrimeiroNome());
         editSobrenome.setText(pessoa.getSobrenome());
