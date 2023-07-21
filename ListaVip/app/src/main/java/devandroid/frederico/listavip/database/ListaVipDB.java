@@ -43,7 +43,8 @@ public class ListaVipDB extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    }
 
     public void salvarObjeto(String tabela, ContentValues dados) {
         db.insert(tabela, null, dados);
@@ -59,7 +60,7 @@ public class ListaVipDB extends SQLiteOpenHelper {
 
         cursor = db.rawQuery(querySQL, null);
 
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
 
             do {
                 registro = new Pessoa();
@@ -72,11 +73,25 @@ public class ListaVipDB extends SQLiteOpenHelper {
 
                 lista.add(registro);
 
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         return lista;
     }
 
+    /*public void alterarObjetico(String tabela, ContentValues dados){
 
+        int id = dados.getAsInteger("id");
+
+        db.update(tabela, dados, "id=?",
+                new String[]{Integer.toString(id)});
+
+    }*/
+
+    public void deletarObjetico(String tabela, int id) {
+
+        db.delete(tabela, "id=?",
+                new String[]{Integer.toString(id)});
+
+    }
 }

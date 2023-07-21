@@ -68,6 +68,27 @@ public class PessoaController extends ListaVipDB {
 
         return pessoa;
     }
+
+   /* public void alterar(Pessoa pessoa) {
+
+        ContentValues dados = new ContentValues();
+
+        dados.put("id", pessoa.getId());
+        dados.put("primeiroNome", pessoa.getPrimeiroNome());
+        dados.put("sobrenome", pessoa.getSobrenome());
+        dados.put("telefone", pessoa.getTelefone());
+        dados.put("generoInformado", pessoa.getGenero());
+
+        alterarObjetico("Lista", dados);
+
+    } */
+
+    public void deletar(int id){
+
+        deletarObjetico("Lista", id);
+
+    }
+
     public void limpar(){
 
         listaVip.clear();

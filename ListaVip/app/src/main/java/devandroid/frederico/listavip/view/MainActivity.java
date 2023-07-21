@@ -47,6 +47,16 @@ public class MainActivity extends AppCompatActivity {
         controller = new PessoaController(MainActivity.this);
         dados = controller.getListaDeDados();
 
+        Pessoa objAlteracao = dados.get(1);
+        objAlteracao.setPrimeiroNome("Novo nome");
+        objAlteracao.setSobrenome("Novo sobrenome");
+        objAlteracao.setGenero("Novo genero");
+        objAlteracao.setTelefone("Novo telefone");
+
+        //controller.alterar(objAlteracao);
+
+        controller.deletar(1);
+
         generoController = new GeneroController();
         tiposDeGenero = generoController.dadosParaSpinner();
 
