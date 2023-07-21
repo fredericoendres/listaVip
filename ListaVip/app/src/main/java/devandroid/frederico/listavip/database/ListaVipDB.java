@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import devandroid.frederico.listavip.model.Pessoa;
+
 public class ListaVipDB extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "listavip.db";
@@ -43,4 +48,35 @@ public class ListaVipDB extends SQLiteOpenHelper {
     public void salvarObjeto(String tabela, ContentValues dados) {
         db.insert(tabela, null, dados);
     }
+
+    public List<Pessoa> listarDados() {
+
+        List<Pessoa> lista = new ArrayList<>();
+
+        Pessoa registro;
+
+        String querySQL = "SELECT * FROM Lista";
+
+        cursor = db.rawQuery(querySQL, null);
+
+        if(cursor.moveToFirst()){
+
+            do {
+                registro = new Pessoa();
+
+                registro.setId(cursor.getInt(0));
+                registro.setPrimeiroNome(cursor.getString(1));
+                registro.setSobrenome(cursor.getString(2));
+                registro.setTelefone(cursor.getString(3));
+                registro.setGenero(cursor.getString(4));
+
+                lista.add(registro);
+
+            } while(cursor.moveToNext());
+        }
+
+        return lista;
+    }
+
+
 }

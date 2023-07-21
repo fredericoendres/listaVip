@@ -6,6 +6,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.util.List;
+
 import devandroid.frederico.listavip.database.ListaVipDB;
 import devandroid.frederico.listavip.model.Pessoa;
 import devandroid.frederico.listavip.view.MainActivity;
@@ -51,6 +53,10 @@ public class PessoaController extends ListaVipDB {
 
         salvarObjeto("Lista", dados);
 
+    }
+
+    public List<Pessoa> getListaDeDados(){
+        return listarDados();
     }
 
     public Pessoa buscar(Pessoa pessoa){

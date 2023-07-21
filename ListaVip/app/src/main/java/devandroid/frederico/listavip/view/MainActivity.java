@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnFinalizar;
     ImageButton btnVerMais;
 
+    List<Pessoa> dados;
     Spinner spinner;
 
     @Override
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_spinner);
 
         controller = new PessoaController(MainActivity.this);
-        controller.toString();
+        dados = controller.getListaDeDados();
 
         generoController = new GeneroController();
         tiposDeGenero = generoController.dadosParaSpinner();

@@ -2,11 +2,20 @@ package devandroid.frederico.listavip.model;
 
 public class Pessoa {
 
+    private int id;
     private String primeiroNome;
     private String sobrenome;
     private String genero;
     private String telefone;
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getPrimeiroNome() {
         return primeiroNome;
