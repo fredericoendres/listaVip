@@ -1,5 +1,6 @@
 package devandroid.frederico.listavip.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,7 +29,7 @@ public class ListaVipDB extends SQLiteOpenHelper {
         String sqlListaVip
                 = "CREATE TABLE Lista (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "primeiroNome TEXT, " +
-                "segundoNome TEXT, " +
+                "sobrenome TEXT, " +
                 "telefone TEXT, " +
                 "generoInformado TEXT)";
 
@@ -37,7 +38,9 @@ public class ListaVipDB extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
 
+    public void salvarObjeto(String tabela, ContentValues dados) {
+        db.insert(tabela, null, dados);
     }
 }

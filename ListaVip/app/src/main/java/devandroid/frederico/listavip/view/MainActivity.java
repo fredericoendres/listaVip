@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         editGenero.setText(pessoa.getGenero());
         editTelefone.setText(pessoa.getTelefone());
 
+
         btnLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
