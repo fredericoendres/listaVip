@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="106dp"
+    android:gravity="bottom"
+    android:padding="16dp"
+    android:background="@color/corBotoes"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <TextView
+        android:id="@+id/titulo_header"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:text="Listagem de clientes"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+
+</LinearLayout>

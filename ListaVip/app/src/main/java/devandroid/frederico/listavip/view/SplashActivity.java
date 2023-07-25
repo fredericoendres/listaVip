@@ -1,10 +1,10 @@
 package devandroid.frederico.listavip.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import devandroid.frederico.listavip.R;
 import devandroid.frederico.listavip.database.ListaVipDB;

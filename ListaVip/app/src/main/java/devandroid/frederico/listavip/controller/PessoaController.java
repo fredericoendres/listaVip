@@ -10,7 +10,7 @@ import java.util.List;
 
 import devandroid.frederico.listavip.database.ListaVipDB;
 import devandroid.frederico.listavip.model.Pessoa;
-import devandroid.frederico.listavip.view.MainActivity;
+import devandroid.frederico.listavip.view.SpinnerActivity;
 
 public class PessoaController extends ListaVipDB {
 
@@ -18,7 +18,7 @@ public class PessoaController extends ListaVipDB {
     SharedPreferences.Editor listaVip;
     public static final String NOME_PREFERENCES = "pref_listavip";
 
-    public PessoaController(MainActivity mainActivity){
+    public PessoaController(SpinnerActivity mainActivity){
         super(mainActivity);
         preferences =
                 mainActivity.getSharedPreferences(NOME_PREFERENCES, 0);

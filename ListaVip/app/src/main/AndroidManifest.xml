@@ -8,15 +8,18 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/_1762187_2023132414565140_722551162595772187_n"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/_1762187_2023132414565140_722551162595772187_n"
         android:supportsRtl="true"
         android:theme="@style/Theme.ListaVip"
         tools:targetApi="31">
         <activity
             android:name=".view.MainActivity"
             android:exported="false" />
+        <activity
+            android:name=".view.SpinnerActivity"
+            android:exported="true"/>
         <activity
             android:name=".view.SplashActivity"
             android:exported="true">

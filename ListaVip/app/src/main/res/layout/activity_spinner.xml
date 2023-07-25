@@ -8,6 +8,7 @@
     tools:context=".view.MainActivity"
     android:orientation="vertical">
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -143,6 +144,12 @@
         android:elegantTextHeight="true"
         android:text="@string/txt_button_finalizar"
         android:textSize="16sp" />
+
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/toolbar" />
 
         </LinearLayout>
     </ScrollView>
