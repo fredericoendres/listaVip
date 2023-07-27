@@ -27,22 +27,6 @@
             android:layout_height="match_parent"
             android:id="@+id/fragment_container" >
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="324dp"
-                android:gravity="center"
-                android:text="Bem vindo(a) $nome do estabelecimento"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:visibility="visible" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="252dp"
-                android:layout_height="252dp"
-                android:layout_marginTop="160dp"
-                android:layout_gravity="center" />
 
         </FrameLayout>
 

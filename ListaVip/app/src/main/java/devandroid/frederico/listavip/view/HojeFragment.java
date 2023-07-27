@@ -6,8 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 import devandroid.frederico.listavip.R;
+import devandroid.frederico.listavip.database.ListaVipDB;
+import devandroid.frederico.listavip.model.Pessoa;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,8 +22,11 @@ import devandroid.frederico.listavip.R;
  */
 public class HojeFragment extends Fragment {
 
+    private RecyclerView recyclerView;
+    private ListaVipDB listaVipDB;
+    private PessoaAdapter adapter;
+
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -26,7 +35,6 @@ public class HojeFragment extends Fragment {
     private String mParam2;
 
     public HojeFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -59,7 +67,20 @@ public class HojeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hoje, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_hoje , container, false);
+
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        listaVipDB = new ListaVipDB(getActivity());
+
+        List<Pessoa> pessoaList = listaVipDB.listarDados();
+
+        adapter = new PessoaAdapter(pessoaList);
+        recyclerView.setAdapter(adapter);
+
+        return rootView;
+
+
     }
 }
