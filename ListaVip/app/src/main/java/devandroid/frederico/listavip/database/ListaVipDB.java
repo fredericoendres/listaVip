@@ -1,95 +1,89 @@
 package devandroid.frederico.listavip.database;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-
-import java.util.ArrayList;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import devandroid.frederico.listavip.model.Pessoa;
 
-public class ListaVipDB extends SQLiteOpenHelper {
+public class ListaVipDB extends OrmLiteSqliteOpenHelper{
 
     public static final String DB_NAME = "listavip.db";
     public static final int DB_VERSION = 1;
 
-    Cursor cursor;
-    SQLiteDatabase db;
+
+    private Dao<Pessoa, Integer> pessoaDao;
 
 
     public ListaVipDB(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-
-        db = getWritableDatabase();
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
-        String sqlListaVip
-                = "CREATE TABLE Lista (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "primeiroNome TEXT, " +
-                "sobrenome TEXT, " +
-                "telefone TEXT, " +
-                "generoInformado TEXT)";
-
-        sqLiteDatabase.execSQL(sqlListaVip);
-
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-    }
-
-    public void salvarObjeto(String tabela, ContentValues dados) {
-        db.insert(tabela, null, dados);
-    }
-
-    public List<Pessoa> listarDados() {
-
-        List<Pessoa> lista = new ArrayList<>();
-
-        Pessoa registro;
-
-        String querySQL = "SELECT * FROM Lista";
-
-        cursor = db.rawQuery(querySQL, null);
-
-        if (cursor.moveToFirst()) {
-
-            do {
-                registro = new Pessoa();
-
-                registro.setId(cursor.getInt(0));
-                registro.setPrimeiroNome(cursor.getString(1));
-                registro.setSobrenome(cursor.getString(2));
-                registro.setTelefone(cursor.getString(3));
-                registro.setGenero(cursor.getString(4));
-
-                lista.add(registro);
-
-            } while (cursor.moveToNext());
+    public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
+        try {
+            TableUtils.createTable(connectionSource, Pessoa.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        return lista;
+    }
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int oldVersion, int newVersion) {
+        try {
+            TableUtils.dropTable(connectionSource, Pessoa.class, true);
+            onCreate(sqLiteDatabase, connectionSource);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    /*public void alterarObjetico(String tabela, ContentValues dados){
-
-        int id = dados.getAsInteger("id");
-
-        db.update(tabela, dados, "id=?",
-                new String[]{Integer.toString(id)});
-
-    }*/
-
-    public void deletarObjetico(String tabela, int id) {
-
-        db.delete(tabela, "id=?",
-                new String[]{Integer.toString(id)});
-
+    private Dao<Pessoa, Integer> getPessoaDao() throws SQLException {
+        if (pessoaDao == null) {
+            pessoaDao = DaoManager.createDao(getConnectionSource(), Pessoa.class);
+        }
+        return pessoaDao;
     }
+
+    public void salvarObjeto(String tabela, Pessoa pessoa) {
+        try {
+            pessoa.setDataRegistro(new Date());
+            getPessoaDao().create(pessoa);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Pessoa> listarDadosHoje() {
+        try {
+            long tempoAtualMillis = System.currentTimeMillis();
+            // Tempo de 24 horas
+            long vinteQuatroHoras = tempoAtualMillis - (24 * 60 * 60 * 1000);
+
+            QueryBuilder<Pessoa, Integer> queryBuilder = getPessoaDao().queryBuilder();
+            queryBuilder.where().ge("dataRegistro", new Date(vinteQuatroHoras));
+
+            return queryBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public void deletarObjetico(Pessoa pessoa) {
+        try {
+            getPessoaDao().delete(pessoa);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

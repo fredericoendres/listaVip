@@ -26,26 +26,15 @@ public class HojeFragment extends Fragment {
     private ListaVipDB listaVipDB;
     private PessoaAdapter adapter;
 
-    // TODO: Rename parameter arguments, choose names that match
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public HojeFragment() {
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HojeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HojeFragment newInstance(String param1, String param2) {
         HojeFragment fragment = new HojeFragment();
         Bundle args = new Bundle();
@@ -74,7 +63,7 @@ public class HojeFragment extends Fragment {
 
         listaVipDB = new ListaVipDB(getActivity());
 
-        List<Pessoa> pessoaList = listaVipDB.listarDados();
+        List<Pessoa> pessoaList = listaVipDB.listarDadosHoje();
 
         adapter = new PessoaAdapter(pessoaList);
         recyclerView.setAdapter(adapter);

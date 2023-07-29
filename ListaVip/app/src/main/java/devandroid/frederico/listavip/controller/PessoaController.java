@@ -35,7 +35,6 @@ public class PessoaController extends ListaVipDB {
     }
 
     public void salvar(Pessoa pessoa) {
-
         ContentValues dados = new ContentValues();
 
         Log.d("MVC_Controller", "Salvo: "+pessoa.toString());
@@ -51,12 +50,16 @@ public class PessoaController extends ListaVipDB {
         dados.put("telefone", pessoa.getTelefone());
         dados.put("generoInformado", pessoa.getGenero());
 
-        salvarObjeto("Lista", dados);
+        salvarObjeto(pessoa);
 
     }
 
+    private void salvarObjeto(Pessoa pessoa) {
+        salvarObjeto("Lista", pessoa);
+    }
+
     public List<Pessoa> getListaDeDados(){
-        return listarDados();
+        return listarDadosHoje();
     }
 
     public Pessoa buscar(Pessoa pessoa){
@@ -69,24 +72,8 @@ public class PessoaController extends ListaVipDB {
         return pessoa;
     }
 
-   /* public void alterar(Pessoa pessoa) {
 
-        ContentValues dados = new ContentValues();
-
-        dados.put("id", pessoa.getId());
-        dados.put("primeiroNome", pessoa.getPrimeiroNome());
-        dados.put("sobrenome", pessoa.getSobrenome());
-        dados.put("telefone", pessoa.getTelefone());
-        dados.put("generoInformado", pessoa.getGenero());
-
-        alterarObjetico("Lista", dados);
-
-    } */
-
-    public void deletar(int id){
-
-        deletarObjetico("Lista", id);
-
+    private void deletarObjetico(String lista, int id) {
     }
 
     public void limpar(){

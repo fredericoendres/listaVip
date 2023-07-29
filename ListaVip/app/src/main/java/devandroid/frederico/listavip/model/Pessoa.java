@@ -1,12 +1,30 @@
 package devandroid.frederico.listavip.model;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Date;
+
+
+@DatabaseTable(tableName = "Lista")
 public class Pessoa {
 
+    @DatabaseField(generatedId = true)
     private int id;
+
+    @DatabaseField(columnName = "primeiroNome")
     private String primeiroNome;
+
+    @DatabaseField(columnName = "sobrenome")
     private String sobrenome;
+
+    @DatabaseField(columnName = "generoInformado")
     private String genero;
+
+    @DatabaseField(columnName = "telefone")
     private String telefone;
+
+    @DatabaseField(columnName = "dataRegistro")
+    private Date dataRegistro;
 
 
     public int getId() {
@@ -50,9 +68,15 @@ public class Pessoa {
         this.telefone = telefone;
     }
 
+    public Date getDataRegistro() {
+        return dataRegistro;
+    }
+
+    public void setDataRegistro(Date dataRegistro) {
+        this.dataRegistro = dataRegistro;
+    }
+
     public Pessoa() {
-
-
     }
 
     @Override
@@ -62,6 +86,7 @@ public class Pessoa {
                 ", sobrenome='" + sobrenome + '\'' +
                 ", genero='" + genero + '\'' +
                 ", telefone='" + telefone + '\'' +
+                ", dataRegistro='" + dataRegistro + '\'' +
                 '}';
     }
 }
