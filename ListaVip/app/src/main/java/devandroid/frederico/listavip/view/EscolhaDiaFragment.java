@@ -11,14 +11,20 @@ import android.widget.ImageButton;
 import android.widget.TimePicker;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import devandroid.frederico.listavip.R;
+import devandroid.frederico.listavip.database.ListaVipDB;
+import devandroid.frederico.listavip.model.Pessoa;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +42,9 @@ public class EscolhaDiaFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private RecyclerView recyclerView;
+    private PessoaAdapter adapter;
+    private ListaVipDB listaVipDB;
     private void showDateTimePickerDialog() {
         Calendar calendar = Calendar.getInstance();
         long currentTimestamp = calendar.getTimeInMillis();
@@ -52,7 +61,9 @@ public class EscolhaDiaFragment extends Fragment {
                 Calendar selectedCalendar = Calendar.getInstance();
                 selectedCalendar.setTimeInMillis(selection);
 
-                showTimePickerForEndDate(selectedCalendar);
+                List<Pessoa> pessoaList = listaVipDB.listarDadosData(selectedCalendar);
+
+                adapter.updateData(pessoaList);
             }
         });
 
@@ -117,7 +128,9 @@ public class EscolhaDiaFragment extends Fragment {
 
 
         View rootView = inflater.inflate(R.layout.fragment_escolha_dia, container, false);
-
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listaVipDB = new ListaVipDB(requireContext());
         ImageButton btnData = rootView.findViewById(R.id.btnData);
         btnData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +138,10 @@ public class EscolhaDiaFragment extends Fragment {
                 showDateTimePickerDialog();
             }
         });
+
+        List<Pessoa> pessoaList = new ArrayList<>();
+        adapter = new PessoaAdapter(pessoaList);
+        recyclerView.setAdapter(adapter);
 
         return rootView;
 

@@ -21,6 +21,10 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
         this.pessoaList = pessoaList;
     }
 
+    public void updateData(List<Pessoa> newPessoaList) {
+        pessoaList = newPessoaList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
