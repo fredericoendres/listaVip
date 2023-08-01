@@ -43,11 +43,13 @@ public class PessoaController extends ListaVipDB {
         listaVip.putString("sobrenome", pessoa.getSobrenome());
         listaVip.putString("genero", pessoa.getGenero());
         listaVip.putString("telefone", pessoa.getTelefone());
+        listaVip.putString("cpf", pessoa.getCpf());
         listaVip.apply();
 
         dados.put("primeiroNome", pessoa.getPrimeiroNome());
         dados.put("sobrenome", pessoa.getSobrenome());
         dados.put("telefone", pessoa.getTelefone());
+        dados.put("cpf", pessoa.getCpf());
         dados.put("generoInformado", pessoa.getGenero());
 
         salvarObjeto(pessoa);

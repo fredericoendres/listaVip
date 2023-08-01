@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,9 +30,10 @@ public class SpinnerActivity extends AppCompatActivity {
 
     EditText editPrimeiroNome;
     EditText editSobrenome;
-    EditText editGenero;
+    EditText editCpf;
     EditText editTelefone;
 
+    private String selectedGenero;
     Button btnLimpar;
     Button btnSalvar;
     Button btnFinalizar;
@@ -57,14 +59,15 @@ public class SpinnerActivity extends AppCompatActivity {
         editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         editSobrenome = findViewById(R.id.editSobrenome);
         editSobrenome = findViewById(R.id.editSobrenome);
-        editGenero = findViewById(R.id.editGenero);
+        editCpf = findViewById(R.id.editCpf);
         editTelefone = findViewById(R.id.editTelefone);
         spinner = findViewById(R.id.spinner);
 
         editPrimeiroNome.setText(pessoa.getPrimeiroNome());
         editSobrenome.setText(pessoa.getSobrenome());
         editTelefone.setText(pessoa.getTelefone());
-        editGenero.setText(pessoa.getGenero());
+        editCpf.setText(pessoa.getCpf());
+
 
         btnVoltar = findViewById(R.id.btnVerMais);
         btnFinalizar = findViewById(R.id.btnFinalizar);
@@ -82,8 +85,26 @@ public class SpinnerActivity extends AppCompatActivity {
 
         editPrimeiroNome.setText(pessoa.getPrimeiroNome());
         editSobrenome.setText(pessoa.getSobrenome());
-        editGenero.setText(pessoa.getGenero());
+        editCpf.setText(pessoa.getCpf());
         editTelefone.setText(pessoa.getTelefone());
+
+        int generoIndex = tiposDeGenero.indexOf(pessoa.getGenero());
+
+        if (generoIndex != -1) {
+            spinner.setSelection(generoIndex);
+        }
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                pessoa.setGenero((String) parent.getItemAtPosition(position));
+                selectedGenero = (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
 
         btnLimpar.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +113,7 @@ public class SpinnerActivity extends AppCompatActivity {
                 editPrimeiroNome.setText("");
                 editSobrenome.setText("");
                 editTelefone.setText("");
-                editGenero.setText("");
+                editCpf.setText("");
 
                 controller.limpar();
             }
@@ -123,11 +144,17 @@ public class SpinnerActivity extends AppCompatActivity {
                 pessoa.setPrimeiroNome(editPrimeiroNome.getText().toString());
                 pessoa.setSobrenome(editSobrenome.getText().toString());
                 pessoa.setTelefone(editTelefone.getText().toString());
-                pessoa.setGenero(editGenero.getText().toString());
+                pessoa.setCpf(editCpf.getText().toString());
+                pessoa.setGenero(selectedGenero);
 
                 Toast.makeText(SpinnerActivity.this, "Salvo "+pessoa.toString(), Toast.LENGTH_LONG).show();
 
                 controller.salvar(pessoa);
+
+                editPrimeiroNome.setText("");
+                editSobrenome.setText("");
+                editTelefone.setText("");
+                editCpf.setText("");
 
             }
         });

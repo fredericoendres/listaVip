@@ -17,6 +17,9 @@ public class Pessoa {
     @DatabaseField(columnName = "sobrenome")
     private String sobrenome;
 
+    @DatabaseField(columnName = "cpf")
+    private String cpf;
+
     @DatabaseField(columnName = "generoInformado")
     private String genero;
 
@@ -50,6 +53,14 @@ public class Pessoa {
 
     public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getGenero() {

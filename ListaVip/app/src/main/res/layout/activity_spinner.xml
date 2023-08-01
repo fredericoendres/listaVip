@@ -67,15 +67,15 @@
         android:inputType="text" />
 
     <EditText
-        android:id="@+id/editGenero"
+        android:id="@+id/editCpf"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/txt_hint_edit_gero"
-        android:inputType="text" />
+        android:hint="@string/txt_hint_edit_cpf"
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/editTelefone"
@@ -85,8 +85,9 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/txt_hint_edit_fone"
-        android:inputType="text" />
+        android:inputType="number"
+        android:digits="0123456789"
+        android:hint="@string/txt_hint_edit_fone"/>
 
     <TextView
         android:id="@+id/txtListaSpinner"
@@ -127,7 +128,7 @@
         android:id="@+id/btnSalvar"
         android:layout_width="103dp"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="157dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:background="@color/corBotoes"
@@ -140,7 +141,7 @@
         android:layout_height="85dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:elegantTextHeight="true"
         android:text="@string/txt_button_finalizar"
         android:textSize="16sp" />

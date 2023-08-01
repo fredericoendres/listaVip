@@ -40,6 +40,7 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
         holder.textViewNomeCompleto.setText(nomeCompleto);
         holder.textViewTelefone.setText(pessoa.getTelefone());
         holder.textViewGenero.setText((pessoa.getGenero()));
+        holder.textViewCpf.setText(pessoa.getCpf());
 
         
 
@@ -51,7 +52,7 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
     }
 
     public static class PessoaViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewNomeCompleto, textViewTelefone, textViewGenero, textViewSobrenome;
+        TextView textViewNomeCompleto, textViewTelefone, textViewGenero, textViewSobrenome, textViewCpf;
 
         public PessoaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,6 +60,7 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
             textViewTelefone = itemView.findViewById(R.id.textViewTelefone);
             textViewGenero = itemView.findViewById(R.id.textViewGenero);
             textViewSobrenome = itemView.findViewById(R.id.textViewSobrenome);
+            textViewCpf = itemView.findViewById(R.id.textViewCpf);
         }
     }
 
