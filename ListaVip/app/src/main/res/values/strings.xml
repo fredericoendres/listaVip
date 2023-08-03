@@ -18,5 +18,6 @@
     <string name="open_nav">Open navigation</string>
     <string name="close_nav">Close navigation</string>
     <string name="selecione_data_txt">Selecione Data</string>
-    <string name="selecione_um_periodo_txt">Selecione um período</string>
+    <string name="selecione_um_periodo_txt">Selecione uma data</string>
+    <string name="data_final_txt">Data Final</string>
 </resources>

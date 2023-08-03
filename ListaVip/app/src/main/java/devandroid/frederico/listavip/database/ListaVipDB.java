@@ -78,12 +78,29 @@ public class ListaVipDB extends OrmLiteSqliteOpenHelper{
         return null;
     }
 
-    public List<Pessoa> listarDadosData(Calendar selectedDate) {
+    public List<Pessoa> listarDadosData(Calendar selectedDateInicio, Calendar selectedDateFim) {
         try {
-            long startTimeMillis = selectedDate.getTimeInMillis();
+            long startTimeMillis = selectedDateInicio.getTimeInMillis();
+            long endTimeMillis = selectedDateFim.getTimeInMillis();
 
-            selectedDate.add(Calendar.DAY_OF_MONTH, 1);
-            long endTimeMillis = selectedDate.getTimeInMillis();
+            QueryBuilder<Pessoa, Integer> queryBuilder = getPessoaDao().queryBuilder();
+            queryBuilder.where().between("dataRegistro", new Date(startTimeMillis), new Date(endTimeMillis));
+
+            return queryBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Pessoa> listarDadosDataFim(Calendar selectedDate) {
+        try {
+            Calendar endDate = Calendar.getInstance();
+            endDate.setTimeInMillis(selectedDate.getTimeInMillis());
+            endDate.add(Calendar.DAY_OF_MONTH, 1);
+
+            long startTimeMillis = selectedDate.getTimeInMillis();
+            long endTimeMillis = endDate.getTimeInMillis();
 
             QueryBuilder<Pessoa, Integer> queryBuilder = getPessoaDao().queryBuilder();
             queryBuilder.where().between("dataRegistro", new Date(startTimeMillis), new Date(endTimeMillis));

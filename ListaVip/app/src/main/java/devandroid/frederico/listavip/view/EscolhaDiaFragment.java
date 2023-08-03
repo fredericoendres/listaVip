@@ -1,26 +1,23 @@
 package devandroid.frederico.listavip.view;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import devandroid.frederico.listavip.R;
 import devandroid.frederico.listavip.database.ListaVipDB;
@@ -45,23 +42,37 @@ public class EscolhaDiaFragment extends Fragment {
     private RecyclerView recyclerView;
     private PessoaAdapter adapter;
     private ListaVipDB listaVipDB;
-    private void showDateTimePickerDialog() {
+
+    private Calendar selectedInicioDate;
+    private Calendar selectedFimDate;
+
+    private void showDateTimePickerDialog(boolean isInicio) {
         Calendar calendar = Calendar.getInstance();
         long currentTimestamp = calendar.getTimeInMillis();
 
         MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
         builder.setSelection(currentTimestamp);
 
+        builder.setCalendarConstraints(new com.google.android.material.datepicker.CalendarConstraints.Builder().setOpenAt(currentTimestamp)
+                .build());
+
         final MaterialDatePicker<Long> datePicker = builder.build();
 
         datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
             @Override
             public void onPositiveButtonClick(Long selection) {
-
                 Calendar selectedCalendar = Calendar.getInstance();
                 selectedCalendar.setTimeInMillis(selection);
 
-                List<Pessoa> pessoaList = listaVipDB.listarDadosData(selectedCalendar);
+                List<Pessoa> pessoaList = null;
+                if (isInicio) {
+                    selectedInicioDate = selectedCalendar;
+                    showDateTimePickerDialog(false);
+                } else {
+                    selectedFimDate = selectedCalendar;
+                    pessoaList = listaVipDB.listarDadosData(selectedInicioDate, selectedFimDate);
+                    adapter.updateData(pessoaList);
+                }
 
                 adapter.updateData(pessoaList);
             }
@@ -70,24 +81,6 @@ public class EscolhaDiaFragment extends Fragment {
         datePicker.show(requireActivity().getSupportFragmentManager(), "DATE_PICKER_TAG");
     }
 
-    private void showTimePickerForEndDate(Calendar selectedDate) {
-
-        int hour = selectedDate.get(Calendar.HOUR_OF_DAY);
-        int minute = selectedDate.get(Calendar.MINUTE);
-
-        TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-                String dataSelecionada = String.format(Locale.getDefault(), "%02d/%02d/%d %02d:%02d",
-                        selectedDate.get(Calendar.DAY_OF_MONTH), selectedDate.get(Calendar.MONTH) + 1,
-                        selectedDate.get(Calendar.YEAR), hourOfDay, minute);
-
-            }
-        }, hour, minute, true);
-
-        timePickerDialog.show();
-    }
 
     public EscolhaDiaFragment() {
         // Required empty public constructor
@@ -131,15 +124,29 @@ public class EscolhaDiaFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listaVipDB = new ListaVipDB(requireContext());
-        ImageButton btnData = rootView.findViewById(R.id.btnData);
-        btnData.setOnClickListener(new View.OnClickListener() {
+        ImageButton btnDataInicio = rootView.findViewById(R.id.btnDataInicio);
+        ImageButton btnDataFim = rootView.findViewById(R.id.btnDataFim);
+
+        btnDataInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDateTimePickerDialog();
+                showDateTimePickerDialog(true);
             }
         });
 
-        List<Pessoa> pessoaList = new ArrayList<>();
+        btnDataFim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedInicioDate != null) {
+                    showDateTimePickerDialog(false);
+                } else {
+                    Toast.makeText(requireContext(), "Selecione a data inicial antes", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+                List<Pessoa> pessoaList = new ArrayList<>();
         adapter = new PessoaAdapter(pessoaList);
         recyclerView.setAdapter(adapter);
 

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import devandroid.frederico.listavip.R;
@@ -18,10 +19,17 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
     private List<Pessoa> pessoaList;
 
     public PessoaAdapter(List<Pessoa> pessoaList) {
-        this.pessoaList = pessoaList;
+        if (pessoaList == null) {
+            this.pessoaList = new ArrayList<>();
+        } else {
+            this.pessoaList = pessoaList;
+        }
     }
 
     public void updateData(List<Pessoa> newPessoaList) {
+        if (newPessoaList == null) {
+            return;
+        }
         pessoaList = newPessoaList;
         notifyDataSetChanged();
     }
