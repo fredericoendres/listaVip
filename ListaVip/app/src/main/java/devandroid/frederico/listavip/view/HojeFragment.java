@@ -65,7 +65,18 @@ public class HojeFragment extends Fragment {
 
         List<Pessoa> pessoaList = listaVipDB.listarDadosHoje();
 
+
         adapter = new PessoaAdapter(pessoaList);
+
+        adapter = new PessoaAdapter(pessoaList, new PessoaAdapter.OnDeleteClickListener() {
+            @Override
+            public void onDeleteClick(Pessoa pessoa) {
+                listaVipDB.deletarObjeto(pessoa);
+                pessoaList.remove(pessoa);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         recyclerView.setAdapter(adapter);
 
         return rootView;

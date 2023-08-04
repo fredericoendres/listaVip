@@ -148,6 +148,16 @@ public class EscolhaDiaFragment extends Fragment {
 
                 List<Pessoa> pessoaList = new ArrayList<>();
         adapter = new PessoaAdapter(pessoaList);
+
+        adapter = new PessoaAdapter(pessoaList, new PessoaAdapter.OnDeleteClickListener() {
+            @Override
+            public void onDeleteClick(Pessoa pessoa) {
+                listaVipDB.deletarObjeto(pessoa);
+                pessoaList.remove(pessoa);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         recyclerView.setAdapter(adapter);
 
         return rootView;

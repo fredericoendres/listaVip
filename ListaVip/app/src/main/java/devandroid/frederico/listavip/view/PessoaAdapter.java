@@ -3,6 +3,7 @@ package devandroid.frederico.listavip.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,16 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
         } else {
             this.pessoaList = pessoaList;
         }
+    }
+    private OnDeleteClickListener onDeleteClickListener;
+
+    public PessoaAdapter(List<Pessoa> pessoaList, OnDeleteClickListener onDeleteClickListener) {
+        this.pessoaList = pessoaList;
+        this.onDeleteClickListener = onDeleteClickListener;
+    }
+
+    public interface OnDeleteClickListener {
+        void onDeleteClick(Pessoa pessoa);
     }
 
     public void updateData(List<Pessoa> newPessoaList) {
@@ -49,7 +60,14 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
         holder.textViewTelefone.setText(pessoa.getTelefone());
         holder.textViewGenero.setText((pessoa.getGenero()));
         holder.textViewCpf.setText(pessoa.getCpf());
-
+        holder.btnDeletarPessoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onDeleteClickListener != null) {
+                    onDeleteClickListener.onDeleteClick(pessoa);
+                }
+            }
+        });
         
 
     }
@@ -62,6 +80,9 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
     public static class PessoaViewHolder extends RecyclerView.ViewHolder {
         TextView textViewNomeCompleto, textViewTelefone, textViewGenero, textViewSobrenome, textViewCpf;
 
+        ImageButton btnDeletarPessoa;
+
+
         public PessoaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNomeCompleto = itemView.findViewById(R.id.textViewNomeCompleto);
@@ -69,6 +90,7 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
             textViewGenero = itemView.findViewById(R.id.textViewGenero);
             textViewSobrenome = itemView.findViewById(R.id.textViewSobrenome);
             textViewCpf = itemView.findViewById(R.id.textViewCpf);
+            btnDeletarPessoa = itemView.findViewById(R.id.btnDeletarPessoa);
         }
     }
 

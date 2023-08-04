@@ -80,6 +80,16 @@ public class ListaVipDB extends OrmLiteSqliteOpenHelper{
 
     public List<Pessoa> listarDadosData(Calendar selectedDateInicio, Calendar selectedDateFim) {
         try {
+            selectedDateInicio.set(Calendar.HOUR_OF_DAY, 0);
+            selectedDateInicio.set(Calendar.MINUTE, 0);
+            selectedDateInicio.set(Calendar.SECOND, 0);
+            selectedDateInicio.set(Calendar.MILLISECOND, 0);
+
+            selectedDateFim.set(Calendar.HOUR_OF_DAY, 23);
+            selectedDateFim.set(Calendar.MINUTE, 59);
+            selectedDateFim.set(Calendar.SECOND, 59);
+            selectedDateFim.set(Calendar.MILLISECOND, 999);
+
             long startTimeMillis = selectedDateInicio.getTimeInMillis();
             long endTimeMillis = selectedDateFim.getTimeInMillis();
 
@@ -113,7 +123,7 @@ public class ListaVipDB extends OrmLiteSqliteOpenHelper{
     }
 
 
-    public void deletarObjetico(Pessoa pessoa) {
+    public void deletarObjeto(Pessoa pessoa) {
         try {
             getPessoaDao().delete(pessoa);
         } catch (SQLException e) {
