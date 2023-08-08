@@ -21,4 +21,5 @@
     <string name="selecione_um_periodo_txt">Selecione uma data</string>
     <string name="data_final_txt">Data Final</string>
     <string name="editar_pessoa_txt">Editar Pessoa</string>
+    <string name="deletar_pessoa_txt">deletar pessoa</string>
 </resources>

@@ -1,4 +1,4 @@
-package devandroid.frederico.listavip.view;
+package devandroid.frederico.listavip.controller;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +26,19 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
             this.pessoaList = pessoaList;
         }
     }
+
+    private OnEditClickListener onEditClickListener;
+
+    public interface OnEditClickListener {
+        void onEditClick(int pessoaId);
+    }
+    public void setOnEditClickListener(OnEditClickListener onEditClickListener) {
+        this.onEditClickListener = onEditClickListener;
+    }
+
     private OnDeleteClickListener onDeleteClickListener;
 
-    public PessoaAdapter(List<Pessoa> pessoaList, OnDeleteClickListener onDeleteClickListener) {
-        this.pessoaList = pessoaList;
+    public void setOnDeleteClickListener(OnDeleteClickListener onDeleteClickListener) {
         this.onDeleteClickListener = onDeleteClickListener;
     }
 
@@ -60,6 +69,15 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
         holder.textViewTelefone.setText(pessoa.getTelefone());
         holder.textViewGenero.setText((pessoa.getGenero()));
         holder.textViewCpf.setText(pessoa.getCpf());
+
+        holder.btnEditarPessoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onEditClickListener != null) {
+                    onEditClickListener.onEditClick(pessoa.getId());
+                }
+            }
+        });
         holder.btnDeletarPessoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +99,7 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
         TextView textViewNomeCompleto, textViewTelefone, textViewGenero, textViewSobrenome, textViewCpf;
 
         ImageButton btnDeletarPessoa;
+        ImageButton btnEditarPessoa;
 
 
         public PessoaViewHolder(@NonNull View itemView) {
@@ -91,6 +110,7 @@ public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaView
             textViewSobrenome = itemView.findViewById(R.id.textViewSobrenome);
             textViewCpf = itemView.findViewById(R.id.textViewCpf);
             btnDeletarPessoa = itemView.findViewById(R.id.btnDeletarPessoa);
+            btnEditarPessoa = itemView.findViewById(R.id.btnEditarPessoa);
         }
     }
 

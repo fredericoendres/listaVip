@@ -1,5 +1,6 @@
 package devandroid.frederico.listavip.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import devandroid.frederico.listavip.R;
+import devandroid.frederico.listavip.controller.PessoaAdapter;
 import devandroid.frederico.listavip.database.ListaVipDB;
 import devandroid.frederico.listavip.model.Pessoa;
 
@@ -20,7 +22,14 @@ import devandroid.frederico.listavip.model.Pessoa;
  * Use the {@link HojeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HojeFragment extends Fragment {
+public class HojeFragment extends Fragment implements PessoaAdapter.OnEditClickListener {
+
+    @Override
+    public void onEditClick(int pessoaId) {
+        Intent intent = new Intent(requireContext(), SpinnerActivity.class);
+        intent.putExtra("pessoaId", pessoaId);
+        startActivity(intent);
+    }
 
     private RecyclerView recyclerView;
     private ListaVipDB listaVipDB;
@@ -67,8 +76,8 @@ public class HojeFragment extends Fragment {
 
 
         adapter = new PessoaAdapter(pessoaList);
-
-        adapter = new PessoaAdapter(pessoaList, new PessoaAdapter.OnDeleteClickListener() {
+        adapter.setOnEditClickListener(this);
+        adapter.setOnDeleteClickListener(new PessoaAdapter.OnDeleteClickListener() {
             @Override
             public void onDeleteClick(Pessoa pessoa) {
                 listaVipDB.deletarObjeto(pessoa);
@@ -81,6 +90,6 @@ public class HojeFragment extends Fragment {
 
         return rootView;
 
-
     }
+
 }

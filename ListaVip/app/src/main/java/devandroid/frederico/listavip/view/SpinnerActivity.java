@@ -36,7 +36,6 @@ public class SpinnerActivity extends AppCompatActivity {
     private String selectedGenero;
     Button btnLimpar;
     Button btnSalvar;
-    Button btnFinalizar;
 
     ImageButton btnVoltar;
     List<Pessoa> dados;
@@ -63,16 +62,24 @@ public class SpinnerActivity extends AppCompatActivity {
         editTelefone = findViewById(R.id.editTelefone);
         spinner = findViewById(R.id.spinner);
 
-        editPrimeiroNome.setText(pessoa.getPrimeiroNome());
-        editSobrenome.setText(pessoa.getSobrenome());
-        editTelefone.setText(pessoa.getTelefone());
-        editCpf.setText(pessoa.getCpf());
-
-
         btnVoltar = findViewById(R.id.btnVerMais);
-        btnFinalizar = findViewById(R.id.btnFinalizar);
         btnLimpar = findViewById(R.id.btnLimpar);
         btnSalvar = findViewById(R.id.btnSalvar);
+
+        int pessoaId = getIntent().getIntExtra("pessoaId", -1);
+        if (pessoaId != -1) {
+            Pessoa pessoa = controller.getPessoaById(pessoaId);
+
+            editPrimeiroNome.setText(pessoa.getPrimeiroNome());
+            editSobrenome.setText(pessoa.getSobrenome());
+            editTelefone.setText(pessoa.getTelefone());
+            editCpf.setText(pessoa.getCpf());
+
+            int generoIndex = tiposDeGenero.indexOf(pessoa.getGenero());
+            if (generoIndex != -1) {
+                spinner.setSelection(generoIndex);
+            }
+        }
 
         // Criando adapter a colocadn contexto
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
@@ -81,12 +88,6 @@ public class SpinnerActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
         // Injetando
         spinner.setAdapter(adapter);
-
-
-        editPrimeiroNome.setText(pessoa.getPrimeiroNome());
-        editSobrenome.setText(pessoa.getSobrenome());
-        editCpf.setText(pessoa.getCpf());
-        editTelefone.setText(pessoa.getTelefone());
 
         int generoIndex = tiposDeGenero.indexOf(pessoa.getGenero());
 
@@ -126,14 +127,6 @@ public class SpinnerActivity extends AppCompatActivity {
                 Intent intent = new Intent(view.getContext(), MainActivity.class);
                 startActivity(intent);
 
-            }
-        });
-
-        btnFinalizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(SpinnerActivity.this, "Volte Sempre", Toast.LENGTH_LONG).show();
-                finish();
             }
         });
 

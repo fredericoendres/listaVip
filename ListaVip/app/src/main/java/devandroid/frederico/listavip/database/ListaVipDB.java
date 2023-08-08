@@ -131,4 +131,13 @@ public class ListaVipDB extends OrmLiteSqliteOpenHelper{
         }
     }
 
+    public Pessoa getPessoaById(int pessoaId) {
+        try {
+            return getPessoaDao().queryForId(pessoaId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
