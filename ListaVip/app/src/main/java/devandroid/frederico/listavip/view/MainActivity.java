@@ -36,22 +36,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         }
 
-        /* switch (item.getItemId()) {
-            case R.id.nav_home:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                break;
-
-            case R.id.hoje_dia:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HojeFragment()).commit();
-                break;
-
-            case R.id.escolha_dia:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EscolhaDiaFragment()).commit();
-                break;
-
-        }*/
-
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -81,22 +65,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-
-
-
-       /* Pessoa objAlteracao = dados.get(1);
-        objAlteracao.setPrimeiroNome("Novo nome");
-        objAlteracao.setSobrenome("Novo sobrenome");
-        objAlteracao.setGenero("Novo genero");
-        objAlteracao.setTelefone("Novo telefone");
-
-        //controller.alterar(objAlteracao);
-
-        controller.deletar(1);*/
-
-
-
 
 
     }

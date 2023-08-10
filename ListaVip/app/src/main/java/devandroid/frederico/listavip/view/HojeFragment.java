@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.List;
 
 import devandroid.frederico.listavip.R;
@@ -17,11 +19,6 @@ import devandroid.frederico.listavip.controller.PessoaAdapter;
 import devandroid.frederico.listavip.database.ListaVipDB;
 import devandroid.frederico.listavip.model.Pessoa;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HojeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HojeFragment extends Fragment implements PessoaAdapter.OnEditClickListener {
 
     @Override
@@ -79,14 +76,21 @@ public class HojeFragment extends Fragment implements PessoaAdapter.OnEditClickL
         adapter.setOnEditClickListener(this);
         adapter.setOnDeleteClickListener(new PessoaAdapter.OnDeleteClickListener() {
             @Override
-            public void onDeleteClick(Pessoa pessoa) {
-                listaVipDB.deletarObjeto(pessoa);
-                pessoaList.remove(pessoa);
-                adapter.notifyDataSetChanged();
+            public void onDeleteClick(final Pessoa pessoa) {
+                Snackbar snackbar = Snackbar.make(recyclerView, "Pessoa a ser deletada", Snackbar.LENGTH_LONG)
+                        .setAction("CONFIRMAR", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                listaVipDB.deletarObjeto(pessoa);
+                                pessoaList.remove(pessoa);
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                snackbar.show();
             }
         });
 
-        recyclerView.setAdapter(adapter);
+                recyclerView.setAdapter(adapter);
 
         return rootView;
 
