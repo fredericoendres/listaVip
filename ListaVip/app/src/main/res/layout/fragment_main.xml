@@ -23,12 +23,14 @@
             android:popupTheme="@style/Theme.AppCompat.Light"/>
 
         <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/fragment_container" >
+            android:layout_height="match_parent" />
 
-
-        </FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
@@ -41,7 +43,5 @@
         app:menu="@menu/nav_menu"
         app:itemIconTint="@color/corBotoes"
         app:itemTextColor="@color/corBotoes"/>
-
-
 
 </androidx.drawerlayout.widget.DrawerLayout>
